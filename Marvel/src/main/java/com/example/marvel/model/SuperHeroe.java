@@ -13,38 +13,34 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-
 @Entity
 @Table(name = "Superheroe")
-public class SuperHeroe implements Serializable{
-	
+public class SuperHeroe implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 
 	@Column(name = "nombre", nullable = false)
-	@NotNull(message = "El campo nombre no puede ser nulo")
+	@NotNull(message = "name cannot be null")
 	private String nombre;
-	
+
 	@Column(name = "live")
 	private boolean live;
 
 	@Column(name = "universo_id", nullable = false, insertable = true, updatable = false)
 	private Integer universo_id;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "universo_id", insertable = false, updatable = false)
 	private Universo universo;
@@ -53,5 +49,5 @@ public class SuperHeroe implements Serializable{
 	@JoinColumn(name = "id_poder")
 	private List<SuperHeroePoder> poderes;
 
-	
+
 }
