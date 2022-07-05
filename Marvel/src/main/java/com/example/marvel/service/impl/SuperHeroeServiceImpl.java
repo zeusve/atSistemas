@@ -28,4 +28,5 @@ public class SuperHeroeServiceImpl implements SuperHeroeService {
 		}
 		return greetingsFromDB;
 	}
+	
 }
