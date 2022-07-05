@@ -1,4 +1,4 @@
-package com.example.marvel.entity;
+package com.example.marvel.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +14,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 
 @Entity
 @Table(name = "Superheroe")
@@ -43,54 +52,6 @@ public class SuperHeroe implements Serializable{
 	@OneToMany()
 	@JoinColumn(name = "id_poder")
 	private List<SuperHeroePoder> poderes;
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public boolean isLive() {
-		return live;
-	}
-
-	public void setLive(boolean live) {
-		this.live = live;
-	}
-
-	public Integer getUniverso_id() {
-		return universo_id;
-	}
-
-	public void setUniverso_id(Integer universo_id) {
-		this.universo_id = universo_id;
-	}
-
-	public List<SuperHeroePoder> getPoderes() {
-		return poderes;
-	}
-
-	public void setPoderes(List<SuperHeroePoder> poderes) {
-		this.poderes = poderes;
-	}
-
-	public Universo getUniverso() {
-		return universo;
-	}
-
-	public void setUniverso(Universo universo) {
-		this.universo = universo;
-	}
 
 	
 }

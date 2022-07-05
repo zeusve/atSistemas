@@ -1,4 +1,4 @@
-package com.example.marvel.entity;
+package com.example.marvel.model;
 
 import java.io.Serializable;
 
