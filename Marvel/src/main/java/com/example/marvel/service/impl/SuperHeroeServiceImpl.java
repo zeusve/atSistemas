@@ -15,12 +15,13 @@ public class SuperHeroeServiceImpl implements SuperHeroeService {
 
 	@Autowired
 	SuperHeroeRepository repository;
-	
 
 	@Override
 	public SuperHeroe createSuperHeroe(SuperHeroe newSuperHeroe) {
-		if(newSuperHeroe!=null)repository.save(newSuperHeroe);
-		else throw new ResourceNotFoundException("super heroe is null");
+		if (newSuperHeroe != null)
+			repository.save(newSuperHeroe);
+		else
+			throw new ResourceNotFoundException("super heroe is null");
 		return newSuperHeroe;
 	}
 
@@ -32,34 +33,30 @@ public class SuperHeroeServiceImpl implements SuperHeroeService {
 		}
 		return superheroeFromDB;
 	}
-	
+
 	@Override
-	public SuperHeroe findById(Long id) throws ResourceNotFoundException{
+	public SuperHeroe findById(Long id) throws ResourceNotFoundException {
 		Optional<SuperHeroe> superheroeDB = repository.findById(id);
-		if (superheroeDB.isEmpty()){
+		if (superheroeDB.isEmpty()) {
 			throw new ResourceNotFoundException("There is no hero with the id entered in the database!");
 		}
 		return superheroeDB.get();
 	}
-	
-	
 
 	@Override
 	public void save(SuperHeroe sh) {
-		if(sh.equals(null)) throw new ResourceNotFoundException("the superheroe is null");
-		else {
-			repository.save(sh);
-			throw new ResourceNotFoundException("save");
+		if (sh == null) {
+			throw new ResourceNotFoundException("the superheroe is null");
 		}
-		
+		repository.save(sh);
 	}
-	
+
 	public List<SuperHeroe> findByNameContains(String name) {
-//		List<SuperHeroe> shList = repository.findByNameContains(name);
-//		if(shList.isEmpty())throw new ResourceNotFoundException("there are no results for the search");
-//		return shList;
-		return null;
+		List<SuperHeroe> shList = repository.findByNombreContains(name);
+		if (shList.isEmpty())
+			throw new ResourceNotFoundException("there are no results for the indicated name");
+		return shList;
+
 	}
-	
 
 }
