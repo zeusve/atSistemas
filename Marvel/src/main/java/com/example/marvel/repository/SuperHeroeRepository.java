@@ -6,8 +6,9 @@ import org.springframework.stereotype.Repository;
 import com.example.marvel.model.SuperHeroe;
 
 @Repository
-public interface SuperHeroeRepository extends JpaRepository<SuperHeroe, Long>{
-	
-	//search superheroes name equal string parameter
+public interface SuperHeroeRepository extends JpaRepository<SuperHeroe, Long> {
+
+	/* search superheroes name equal string parameter */
 	List<SuperHeroe> findByNombreContains(String name);
+
 }

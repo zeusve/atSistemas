@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,13 +25,13 @@ public class SuperHeroeController {
 	@Autowired
 	private SuperHeroeService service;
 
-	@PostMapping("/add")
+	@PostMapping("/superheroe/add")
 	public ResponseEntity<SuperHeroeDTO> createSuperHeroe(@RequestBody SuperHeroeDTO superheroe) {
 		SuperHeroe newEntity = service.createSuperHeroe(createSuperHeroeFromDTO(superheroe));
 		return ResponseEntity.ok(convertSuperHeroetoDTO(newEntity));
 	}
 
-	@PostMapping("/added")
+	@PostMapping("/superheroe/added")
 	private ResponseEntity<SuperHeroe> guardar(@RequestBody SuperHeroeDTO superheroe) {
 		SuperHeroe newEntity = service.createSuperHeroe(createSuperHeroeFromDTO(superheroe));
 
@@ -42,16 +43,21 @@ public class SuperHeroeController {
 		}
 	}
 
-	// search superheroe by id
+	@DeleteMapping("/superheroe/delete/{id}")
+	private void deleteById(Long id) throws ResourceNotFoundException {
+		Boolean delete = false;
+		delete = service.deleteId(id);
+	}
+
+	/* search superheroe by id */
 	@GetMapping("/superheroe/{id}")
 	public SuperHeroeDTO searchId(@PathVariable(required = true) Long id) throws ResourceNotFoundException {
 		SuperHeroe superheroeDB = service.findById(id);
-		// CREATE MAPPING SERVICE
 		SuperHeroeDTO shDTO = convertSuperHeroetoDTO(superheroeDB);
 		return shDTO;
 	}
 
-	// search all superheroes in DB
+	/* search all superheroes in DB */
 	@GetMapping("/superheroes")
 	public List<SuperHeroeDTO> superheroe() throws ResourceNotFoundException {
 		List<SuperHeroeDTO> response = new ArrayList<>();
@@ -61,9 +67,8 @@ public class SuperHeroeController {
 		return response;
 	}
 
-	// search superheroes name contains String params
-	@RequestMapping("/super/{name}")
-	@GetMapping("/super/{name}")
+	/* search superheroes name contains String params */
+	@GetMapping("/superheroe/name/{name}")
 	public List<SuperHeroeDTO> superheroename(@PathVariable(required = true) String name)
 			throws ResourceNotFoundException {
 		List<SuperHeroeDTO> response = new ArrayList<SuperHeroeDTO>();
@@ -74,7 +79,7 @@ public class SuperHeroeController {
 		return response;
 	}
 
-	// search superheroes name contains String params
+	/* search superheroes name contains String params */
 	@RequestMapping("/sup/{name}")
 	@GetMapping("/sup/{name}")
 	public List<SuperHeroeDTO> supheroename(@PathVariable(required = true) String name)
@@ -86,13 +91,13 @@ public class SuperHeroeController {
 	}
 
 	private SuperHeroe createSuperHeroeFromDTO(SuperHeroeDTO superheroe) {
-		return new SuperHeroe(superheroe.getId(), superheroe.getNombre(), superheroe.isLive(),
-				superheroe.getUniverso_id(), superheroe.getUniverso(), superheroe.getPoderes());
+		return new SuperHeroe(superheroe.getId(), superheroe.getNombre(), superheroe.isLive(), superheroe.getUniverso(),
+				superheroe.getPoderes());
 	}
 
 	private SuperHeroeDTO convertSuperHeroetoDTO(SuperHeroe superheroe) {
 		return new SuperHeroeDTO(superheroe.getId(), superheroe.getNombre(), superheroe.isLive(),
-				superheroe.getUniverso_id(), superheroe.getUniverso(), superheroe.getPoderes());
+				superheroe.getUniverso(), superheroe.getPoderes());
 
 	}
 
