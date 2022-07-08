@@ -1,50 +1,34 @@
-package com.example.marvel.entity;
-
+package com.example.marvel.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name = "Poder") 
-public class Poder implements Serializable{
+public class Universo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer id;
+	private Long id;
 
 	@Column(name = "nombre", nullable = false)
-	@NotNull(message = "El campo nombre no puede ser nulo")
+	@NotNull(message = "name cannot be null")
 	private String nombre;
 	
-	
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	
 }
